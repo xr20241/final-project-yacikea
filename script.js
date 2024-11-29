@@ -1,53 +1,31 @@
+const products = [
+    {
+        id: 1,
+        name: 'Modern Sofa',
+        price: 999.99,
+        modelUrl: 'maneki.html',
+        image: 'images/sofa-thumbnail.jpg'
+    },
+    // Add more products here
+];
+
 document.addEventListener('DOMContentLoaded', () => {
-    const marker = document.querySelector('a-marker');
-    const menuItems = document.querySelectorAll('.menu-item');
-    let currentObject = null;
-
-    const objectConfigs = {
-        cube: {
-            geometry: 'primitive: box; width: 1; height: 1; depth: 1;',
-            position: '0 0.5 0',
-            color: '#4CC3D9'
-        },
-        sphere: {
-            geometry: 'primitive: sphere; radius: 0.5;',
-            position: '0 0.5 0',
-            color: '#EF2D5E'
-        },
-        cylinder: {
-            geometry: 'primitive: cylinder; radius: 0.5; height: 1;',
-            position: '0 0.5 0',
-            color: '#FFC65D'
-        }
-    };
-
-    menuItems.forEach(item => {
-        item.addEventListener('click', () => {
-            const modelType = item.dataset.model;
-            
-            // Supprimer l'objet précédent s'il existe
-            if (currentObject) {
-                marker.removeChild(currentObject);
-            }
-
-            // Créer le nouvel objet
-            const config = objectConfigs[modelType];
-            const entity = document.createElement('a-entity');
-            entity.setAttribute('geometry', config.geometry);
-            entity.setAttribute('position', config.position);
-            entity.setAttribute('material', `color: ${config.color}`);
-            entity.setAttribute('class', 'ar-object');
-
-            // Ajouter l'objet à la scène
-            marker.appendChild(entity);
-            currentObject = entity;
-        });
-    });
-
-    // Gestion des erreurs de la caméra
-    const scene = document.querySelector('a-scene');
-    scene.addEventListener('camera-error', function(error) {
-        console.error('Erreur de caméra:', error);
-        alert('Erreur lors de l\'accès à la caméra. Veuillez vérifier les permissions.');
+    const productsGrid = document.querySelector('.products-grid');
+    
+    products.forEach(product => {
+        const productCard = `
+            <div class="product-card">
+                <img src="${product.image}" alt="${product.name}">
+                <div class="product-info">
+                    <h3 class="product-title">${product.name}</h3>
+                    <p class="product-price">$${product.price}</p>
+                    <div class="product-actions">
+                        <a href="${product.modelUrl}" class="view-ar">View Details & AR</a>
+                        <button class="add-to-cart" onclick="addToCart(${product.id})">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        productsGrid.innerHTML += productCard;
     });
 }); 

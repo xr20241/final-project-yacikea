@@ -1,39 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>AR Maneki</title>
+    <title>AR Furniture Shop</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            width: 100vw;
-            height: 100vh;
-        }
-
-        model-viewer {
-            width: 100%;
-            height: 100%;
-            background-color: transparent;
-        }
-    </style>
 </head>
 <body>
-    <model-viewer 
-        id="maneki"
-        ar
-        ar-modes="quick-look"
-        camera-controls
-        interaction-prompt="none"
-        ar-scale="auto"
-        ar-scale-controls
-        ar-placement="floor"
-        ios-src="assets/maneki.usdz"
-        touch-action="pan-y"
-        alt="Maneki 3D">
-    </model-viewer>
+    <div class="container">
+        <header>
+            <h1>AR Furniture Shop</h1>
+            <div class="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">0</span>
+            </div>
+        </header>
+
+        <div class="products-grid">
+            <!-- Products will be dynamically inserted here -->
+        </div>
+
+        <!-- Cart Modal -->
+        <div class="cart-modal" id="cartModal">
+            <div class="cart-modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>Cart</h2>
+                <div class="cart-items">
+                    <!-- Cart items will be dynamicall  y inserted here -->
+                </div>
+                <button class="checkout-button">Checkout</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html> 
