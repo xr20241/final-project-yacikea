@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Product } from '../types/Product';
 import { useCart } from '../context/CartContext';
+import '../styles/ProductCard.css';
 
 interface ProductCardProps {
     product: Product;
@@ -17,11 +18,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 <h3 className="product-title">{product.name}</h3>
                 <p className="product-price">${product.price}</p>
                 <div className="product-actions">
-                    <Link to={product.modelUrl} className="view-ar">
+                    <Link to={product.modelUrl} className="view-ar button">
                         View Details & AR
                     </Link>
                     <button 
-                        className="add-to-cart"
+                        className="add-to-cart button"
                         onClick={() => addToCart(product)}
                     >
                         Add to Cart

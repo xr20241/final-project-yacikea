@@ -13,6 +13,14 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
+export const useCart = () => {
+    const context = useContext(CartContext);
+    if (context === undefined) {
+        throw new Error('useCart must be used within a CartProvider');
+    }
+    return context;
+};
+
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [cart, setCart] = useState<CartItem[]>([]);
 
@@ -31,7 +39,13 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     const removeFromCart = (productId: number) => {
-        setCart(currentCart => currentCart.filter(item => item.id !== productId));
+        setCart(currentCart => {
+            return currentCart.map(item => 
+                item.id === productId && item.quantity > 0
+                    ? { ...item, quantity: item.quantity - 1 }
+                    : item
+            ).filter(item => item.quantity > 0);
+        });
     };
 
     return (
@@ -41,10 +55,4 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     );
 };
 
-export const useCart = () => {
-    const context = useContext(CartContext);
-    if (context === undefined) {
-        throw new Error('useCart must be used within a CartProvider');
-    }
-    return context;
-};
+export default CartProvider;
