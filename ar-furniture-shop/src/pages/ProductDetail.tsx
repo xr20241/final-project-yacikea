@@ -4,6 +4,27 @@ import { products } from '../data/products';
 import { useCart } from '../context/CartContext';
 import { FaShoppingCart } from 'react-icons/fa';
 
+const useWindowSize = () => {
+    const [windowSize, setWindowSize] = useState({
+        width: window.innerWidth,
+        height: window.innerHeight,
+    });
+
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowSize({
+                width: window.innerWidth,
+                height: window.innerHeight,
+            });
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    return windowSize;
+};
+
 declare global {
     namespace JSX {
         interface IntrinsicElements {
@@ -17,6 +38,7 @@ const ProductDetail: React.FC = () => {
     const { addToCart, cart, removeFromCart } = useCart();
     const [isCartOpen, setIsCartOpen] = useState(false);
     const product = products.find(p => String(p.id) === id);
+    const { width } = useWindowSize();
 
     const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
     const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -33,6 +55,8 @@ const ProductDetail: React.FC = () => {
     }, []);
 
     if (!product) return <div>Product not found</div>;
+
+    const viewerHeight = width <= 768 ? '100px' : '300px';
 
     return (
         <div className="container">
@@ -91,7 +115,7 @@ const ProductDetail: React.FC = () => {
                     </button>
                 </div>
                 
-                <div className="model-viewer-container">
+                <div>
                     <model-viewer
                         id="furnitureViewer"
                         ar
@@ -101,7 +125,7 @@ const ProductDetail: React.FC = () => {
                         auto-rotate
                         ar-scale="fixed"
                         ios-src={product.iosSrc}
-                        style={{ width: '100%', height: '500px' }}
+                        style={{ width: '100%', height: viewerHeight }}
                     >
                     </model-viewer>
                 </div>
