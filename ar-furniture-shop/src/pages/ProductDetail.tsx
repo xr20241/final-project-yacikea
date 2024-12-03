@@ -119,13 +119,21 @@ const ProductDetail: React.FC = () => {
                     <model-viewer
                         id="furnitureViewer"
                         ar
-                        ar-modes="webxr scene-viewer quick-look"
+                        ar-modes="quick-look"
                         camera-controls
                         shadow-intensity="1"
                         auto-rotate
-                        ar-scale="fixed"
+                        ar-scale="auto"
                         ios-src={product.iosSrc}
                         style={{ width: '100%', height: viewerHeight }}
+                        interaction-prompt="none"
+                        ar-scale-controls
+                        ar-placement="floor"
+                        touch-action="pan-y"
+                        min-camera-orbit="auto auto 5%"
+                        max-camera-orbit="auto auto 100%"
+                        min-field-of-view="10deg"
+                        max-field-of-view="90deg"
                     >
                     </model-viewer>
                 </div>
