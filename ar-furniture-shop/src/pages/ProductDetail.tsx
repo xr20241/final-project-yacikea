@@ -101,6 +101,8 @@ const ProductDetail: React.FC = () => {
                 <div className="product-info">
                     <h2>{product.name}</h2>
                     <p className="product-price">${product.price}</p>
+                    <h3>Description</h3>
+                    <p className="product-description">{product.description}</p>
                     <button 
                         className="add-to-cart"
                         onClick={() => addToCart(product)}

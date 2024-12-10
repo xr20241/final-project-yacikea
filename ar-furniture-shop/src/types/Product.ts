@@ -6,4 +6,5 @@ export interface Product {
   image: string;
   modelSrc?: string;
   iosSrc?: string;
+  description: string;
 }
