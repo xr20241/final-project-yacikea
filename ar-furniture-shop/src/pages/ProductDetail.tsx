@@ -125,7 +125,7 @@ const ProductDetail: React.FC = () => {
                         camera-controls
                         shadow-intensity="1"
                         auto-rotate
-                        ar-scale="auto"
+                        ar-scale="fixed"
                         ios-src={product.iosSrc}
                         style={{ width: '100%', height: viewerHeight }}
                         interaction-prompt="none"
